@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 //user schema
 const userSchema = new mongoose.Schema({
     fullName : {
@@ -29,4 +28,4 @@ const userSchema = new mongoose.Schema({
 
 );
 
-module.exports = mongoose.Model("User",userSchema);
+module.exports = mongoose.model("User",userSchema);

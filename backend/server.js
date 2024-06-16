@@ -6,6 +6,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connect_database = require("./config/db");
 const mongoose = require("mongoose")
+const authRoutes = require("./routes/user.routes.js")
 // Configure environment variables
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use(
 
 
 
+
   //Adding a middleware for setting headers in api requests for allowing its execution to from another server when using browsers
   app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
@@ -49,6 +51,10 @@ app.get("/", (req, res) => {
 		message:'Your server is up and running....'
 	});
 });
+
+// Routes
+app.use('/api/v1/auth', authRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Node Server Running on Port ${PORT}`);
