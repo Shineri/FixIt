@@ -5,7 +5,7 @@ const {generateToken} = require("../utils/generateToken.js")
 
 //signup controller
  const signup = async (req, res) => {
-  const { fullName, email, password,role } = req.body;
+  const { fullName, email, password,role , address, buildingName, societyName, area } = req.body;
 
   //validation
   if (!fullName) {
@@ -27,6 +27,10 @@ const {generateToken} = require("../utils/generateToken.js")
       .status(400)
       .json({ message: "Password does not meet the strength requirements" });
   }
+  // Manager-specific validation
+  if (role === 'Manager' && (!address || !buildingName || !societyName || !area)) {
+    return res.status(400).json({ message: "Please fill all required fields for Manager" });
+  } 
   try {
     // Finding existing user with same email
     const existingUserEmail = await User.findOne({ email: email });
@@ -43,7 +47,11 @@ const {generateToken} = require("../utils/generateToken.js")
       fullName,
       email,
       password: hashedPassword,
-      role
+      role,
+      address,
+      buildingName,
+      societyName,
+      area
     });
     console.log("User registered successfully");
     console.log("User",newUser);
@@ -52,9 +60,14 @@ const {generateToken} = require("../utils/generateToken.js")
       message: "User registered successfully",
       user: {
         id: newUser._id,
-        fullName: fullName,
-        email: email,
+        fullName: newUser.fullName,
+        email: newUser.email,
         role: newUser.role,
+        address: newUser.address,
+        buildingName: newUser.buildingName,
+        societyName: newUser.societyName,
+        area: newUser.area,
+        status: newUser.status
       },
     });
   } catch (err) {
