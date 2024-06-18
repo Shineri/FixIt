@@ -20,12 +20,36 @@ const userSchema = new mongoose.Schema({
         enum: ["User", "Manager"],
         default: "User",
     },
-},
-    {
-        timestamps: true,
-        collection: "users"
+    address: {
+        type: String,
+        required: function () { return this.role === 'Manager'; }
+    },
+    buildingName: {
+        type: String,
+        required: function () { return this.role === 'Manager'; }
+    },
+    societyName: {
+        type: String,
+        required: function () { return this.role === 'Manager'; }
+    },
+    area: {
+        type: String,
+        required: function () { return this.role === 'Manager'; }
+    },
+    workers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Worker'
+    }],
+    status: {
+        type: String,
+        enum: ["Active", "Inactive"],
+        default: "Active"
     }
+}, {
+    timestamps: true,
+    collection: "users"
+});
 
-);
+
 
 module.exports = mongoose.model("User",userSchema);
