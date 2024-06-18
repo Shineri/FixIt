@@ -2,6 +2,7 @@ const User = require("../models/user.js");
 const { hashPassword,comparePassword } = require("../utils/bcrypt.utils.js");
 const  { isValidEmail, isStrongPassword } =require("../utils/validators.js");
 const {generateToken} = require("../utils/generateToken.js")
+
 //signup controller
  const signup = async (req, res) => {
   const { fullName, email, password,role } = req.body;
@@ -116,6 +117,9 @@ const getProfile = async (req, res) => {
       return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+//=====================================================FORGET-PASSWORD =====================================================================================
+
 
 
 module.exports = {signup,login,getProfile};
