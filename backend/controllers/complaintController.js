@@ -44,8 +44,8 @@ const createComplaint = async (req, res) => {
         //user mailbody
         const emailbody = `
         <h2>New Complaint registered</h2>
-        <p>You register a new complaint.</p>     
-        <p>Your complaint has been resolve in few days.</p>
+        <p>You registered a new complaint.</p>     
+        <p>Your complaint will be resolve in few days.</p>
          `;
         await mailSender(user.email, 'New Complaint Registered', emailbody);
         return res.status(201).json({ message: "Complaint created successfully", complaint });
