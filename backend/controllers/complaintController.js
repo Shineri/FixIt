@@ -8,12 +8,11 @@ const createComplaint = async (req, res) => {
 
     try {
         // Find manager based on address, buildingName, societyName, area
-        const manager = await User.findOne({ 
+        const manager = await User.findOne({
             role: 'Manager',
-            address,
-            buildingName,
-            societyName,
-            area
+            pincode: complaint.pincode,
+            state: complaint.state,
+            city: complaint.city
         });
 
         if (!manager) {

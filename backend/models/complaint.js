@@ -12,53 +12,65 @@ const complaintSchema = new Schema({
         ref: 'User', // Assuming manager is also a user
         required: true
     },
-    address: {
+    serviceRequired: {
+        type: String,
+        required: true,
+        enum: ['Electrician', 'Plumber', 'Carpenter', 'Other'] // Add more types as needed
+    },
+    description: {
         type: String,
         required: true
     },
-    buildingName: {
+    pincode: {
         type: String,
         required: true
     },
-    societyName: {
+    state: {
         type: String,
         required: true
     },
-    area: {
+    city: {
         type: String,
         required: true
+    },
+    houseNo_buildingName: {
+        type: [String],
+        required: true,
+        validate: {
+            validator: function(value) {
+                return value.length >= 1; // At least one element is needed
+            },
+            message: 'HouseNo./BuildingName should have at least one element'
+        }
+    },
+    roadName_area_colony: {
+        type: [String],
+        required: true,
+        validate: {
+            validator: function(value) {
+                return value.length >= 1; // At least one element is needed
+            },
+            message: 'roadName_area_colony should have at least one element'
+        }
     },
     status: {
         type: String,
         enum: ['Pending', 'In Progress', 'Resolved'],
         default: 'Pending'
     },
-    title: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        required: true,
-        enum: ['Maintenance', 'Noise', 'Security', 'Other'] // Add more types as needed
-    },
-
-    paymentRequired: {
-        type: Boolean,
-        default: false
+    assigned_worker:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Worker', 
+        required: false // Assigned later by the manager
     },
     paymentStatus: {
         type: String,
         enum: ['Pending', 'Paid', 'Not Required'],
-        default: 'Not Required'
+        default: 'Pending'
     },
     amount: {
         type: Number,
         default: 0
-    },
-    description: {
-        type: String,
-        required: true
     },
     createdAt: {
         type: Date,

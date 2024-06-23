@@ -20,19 +20,19 @@ const userSchema = new mongoose.Schema({
         enum: ["User", "Manager"],
         default: "User",
     },
-    address: {
+    pincode: {
         type: String,
         required: function () { return this.role === 'Manager'; }
     },
-    buildingName: {
+    state: {
         type: String,
         required: function () { return this.role === 'Manager'; }
     },
-    societyName: {
+    city: {
         type: String,
         required: function () { return this.role === 'Manager'; }
     },
-    area: {
+    roadName_area_colony: {
         type: String,
         required: function () { return this.role === 'Manager'; }
     },
@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Worker'
     }],
+    paymentDetails: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PaymentDetails'
+    },
     status: {
         type: String,
         enum: ["Active", "Inactive"],
