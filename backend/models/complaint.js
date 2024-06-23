@@ -75,6 +75,11 @@ const complaintSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    availabilitySlot: {
+        type: String,
+        required: true,
+        enum: ["Morning", "Afternoon"]
     }
 });
 
