@@ -7,14 +7,14 @@ const ComplainForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    serviceRequired: "", // Default value is empty
+    serviceRequired: "", 
     description: "",
     pincode: "",
     state: "",
     city: "",
     houseNoBuildingName: "",
     roadNameAreaColony: "",
-    availabilitySlot: "", // Default value is empty
+    availabilitySlot: "", 
   });
 
   const handleChange = (e) => {
