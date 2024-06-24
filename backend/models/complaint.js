@@ -82,3 +82,6 @@ const complaintSchema = new Schema({
         enum: ["Morning", "Afternoon"]
     }
 });
+
+
+module.exports = mongoose.model('Complaint', complaintSchema);
