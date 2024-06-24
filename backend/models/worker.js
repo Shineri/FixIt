@@ -17,7 +17,7 @@ const workerSchema = new mongoose.Schema(
     },
     services: {
       type: [String],
-      enum : [Electrician, Plumber, Carpenter,other],
+      enum : ['Electrician', 'Plumber', 'Carpenter','other'],
       required: true,
     },
     manager: {
