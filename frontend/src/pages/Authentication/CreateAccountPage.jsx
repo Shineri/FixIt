@@ -1,6 +1,4 @@
-
-
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -12,6 +10,12 @@ const CreateAccountPage = () => {
   const passwordInputRef = useRef();
   const confirmPasswordInputRef = useRef();
   const roleInputRef = useRef();
+  const pincodeInputRef = useRef();
+  const stateInputRef = useRef();
+  const cityInputRef = useRef();
+  const roadNameAreaColonyInputRef = useRef();
+
+  const [role, setRole] = useState("User");
 
   const submitButtonHandler = (event) => {
     event.preventDefault();
@@ -21,6 +25,10 @@ const CreateAccountPage = () => {
     const password = passwordInputRef.current.value;
     const confirmPassword = confirmPasswordInputRef.current.value;
     const role = roleInputRef.current.value;
+    const pincode = pincodeInputRef.current ? pincodeInputRef.current.value : "";
+    const state = stateInputRef.current ? stateInputRef.current.value : "";
+    const city = cityInputRef.current ? cityInputRef.current.value : "";
+    const roadNameAreaColony = roadNameAreaColonyInputRef.current ? roadNameAreaColonyInputRef.current.value : "";
 
     if (fullName.length === 0 || fullName.length > 50) {
       alert("Enter a valid full name");
@@ -30,12 +38,18 @@ const CreateAccountPage = () => {
       alert("Password must be at least 8 characters");
     } else if (password !== confirmPassword) {
       alert("Confirmed password doesn't match");
-    } else if (!role) {
+    } else if (role === "") {
       alert("Please select a role");
+    } else if (role === "Manager" && (pincode === "" || state === "" || city === "" || roadNameAreaColony === "")) {
+      alert("Please fill all the required fields for the Manager role");
     } else {
       toast.success("Account created successfully!");
       navigate("/login");
     }
+  };
+
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
   };
 
   return (
@@ -120,14 +134,72 @@ const CreateAccountPage = () => {
                 required
                 className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 id="role"
+                onChange={handleRoleChange}
               >
-                <option value="" disabled selected>
-                  Select your role
-                </option>
-                <option value="user">User</option>
-                <option value="manager">Manager</option>
+                <option value="User">User</option>
+                <option value="Manager">Manager</option>
               </select>
             </div>
+
+            {role === "Manager" && (
+              <>
+                <div className="mb-4">
+                  <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="pincode">
+                    Pincode
+                  </label>
+                  <input
+                    ref={pincodeInputRef}
+                    type="text"
+                    required
+                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="pincode"
+                    placeholder="Enter pincode..."
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="state">
+                    State
+                  </label>
+                  <input
+                    ref={stateInputRef}
+                    type="text"
+                    required
+                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="state"
+                    placeholder="Enter state..."
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="city">
+                    City
+                  </label>
+                  <input
+                    ref={cityInputRef}
+                    type="text"
+                    required
+                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="city"
+                    placeholder="Enter city..."
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="roadName_area_colony">
+                    Road Name/Area/Colony
+                  </label>
+                  <input
+                    ref={roadNameAreaColonyInputRef}
+                    type="text"
+                    required
+                    className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="roadName_area_colony"
+                    placeholder="Enter road name/area/colony..."
+                  />
+                </div>
+              </>
+            )}
 
             <div className="mb-6 text-center">
               <button
