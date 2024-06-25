@@ -6,7 +6,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connect_database = require("./config/db");
 const mongoose = require("mongoose")
-const authRoutes = require("./routes/user.routes.js")
+const authRoutes = require("./routes/auth.routes.js")
+const managerRoutes = require("./routes/manager.routes.js");
 // Configure environment variables
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use('/api/v1/auth', authRoutes);
+app.use("/api/v2/manager",managerRoutes);
 
 
 app.listen(PORT, () => {

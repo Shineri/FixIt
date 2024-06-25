@@ -33,8 +33,15 @@ const userSchema = new mongoose.Schema({
         required: function () { return this.role === 'Manager'; }
     },
     roadName_area_colony: {
-        type: String,
-        required: function () { return this.role === 'Manager'; }
+        type: [String],
+        required: function () { return this.role === 'Manager'; },
+        validate: {
+            validator: function(value) {
+                return value.length >= 1; // At least one element is needed
+            },
+            message: 'roadName_area_colony should have at least one element'
+        }
+    
     },
     workers: [{
         type: mongoose.Schema.Types.ObjectId,

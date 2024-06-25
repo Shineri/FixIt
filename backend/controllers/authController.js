@@ -28,7 +28,7 @@ const {generateToken} = require("../utils/generateToken.js")
       .json({ message: "Password does not meet the strength requirements" });
   }
   // Manager-specific validation
-  if (role === 'Manager' && (!address || !buildingName || !societyName || !area)) {
+  if (role === 'Manager' && (!pincode || !city || !state || !roadName_area_colony)) {
     return res.status(400).json({ message: "Please fill all required fields for Manager" });
   } 
   try {
@@ -48,10 +48,10 @@ const {generateToken} = require("../utils/generateToken.js")
       email,
       password: hashedPassword,
       role,
-      address,
-      buildingName,
-      societyName,
-      area
+      pincode,
+      city,
+      state,
+      roadName_area_colony
     });
     console.log("User registered successfully");
     console.log("User",newUser);
