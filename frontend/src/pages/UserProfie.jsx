@@ -5,7 +5,7 @@ const UserProfile = ({ userName, role, email}) => {
   const handleComplainForm = () => {
     // Navigate to complain form page
     // Replace '/complain-form' with your actual route
-    window.location.href = "/complain-form";
+    window.location.href = "/ComplainForm";
   };
 
   return (

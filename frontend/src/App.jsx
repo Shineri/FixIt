@@ -12,6 +12,8 @@ import UserProfile from './pages/UserProfie';
 import ManagerDashboard from './pages/ManagerDashboard';
 import PaymentDetails from "./pages/PaymentDetails";
 import Workers from "./pages/Workers";
+import EmailVerificationForm from './pages/Emailverification';
+
 
 
 
@@ -24,7 +26,7 @@ const App = () => {
           <Route path="/CreateAccountPage" element={<CreateAccountPage/>} />
           <Route path="/Login" element={<Login/>} />
           <Route path="/ComplainForm" element={<ComplainForm/>} />
-        
+          <Route path ="/Emailverification" element={<EmailVerificationForm/>}/>
           <Route path ="/UserProfile" element={<UserProfile/>}/>
           <Route path ="/ManagerProfile" element={<ManagerProfile/>}/>
           <Route path ="/ManagerDashboard" element={<ManagerDashboard/>}/>
