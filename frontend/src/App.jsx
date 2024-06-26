@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ManagerProfile from './pages/ManagerProfile';
 import UserProfile from './pages/UserProfie';
+import EmailVerificationForm from './pages/Emailverification';
 
 
 
@@ -22,7 +23,7 @@ const App = () => {
           <Route path="/CreateAccountPage" element={<CreateAccountPage/>} />
           <Route path="/Login" element={<Login/>} />
           <Route path="/ComplainForm" element={<ComplainForm/>} />
-        
+          <Route path ="/Emailverification" element={<EmailVerificationForm/>}/>
           <Route path ="/UserProfile" element={<UserProfile/>}/>
           <Route path ="/ManagerProfile" element={<ManagerProfile/>}/>
           {/* Add other routes as needed */}
