@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllComplaints, getWorkersByService, assignWorker, addManagerPaymentDetails } = require('../controllers/managerController');
+const { getAllComplaints, getWorkersByService, assignWorker, addPaymentDetails } = require('../controllers/managerController');
 const authenticate = require('../middlewares/authMiddleware');
 const {addWorker} =require("../controllers/workerController");
 const checkPaymentDetails = require('../middlewares/checkPaymentDetails');
@@ -14,7 +14,7 @@ router.get('/workers', authenticate, getWorkersByService);
 router.post('/assign-worker', authenticate,checkPaymentDetails, assignWorker);
 
 // Add payment details
-//router.post('/add-payment-details', authenticate, checkPaymentDetails,addManagerPaymentDetails);
+router.post('/add-payment-details', authenticate,addPaymentDetails);
 
 // route to addworker
 router.post('/add-worker',authenticate,checkPaymentDetails,addWorker);
