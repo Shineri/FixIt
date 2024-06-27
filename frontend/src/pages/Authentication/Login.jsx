@@ -1,13 +1,14 @@
 import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ValidateEmail } from "../../Helper/EmailHelper";
+import axios from "axios"; // Import Axios
 
 const Login = () => {
   const navigate = useNavigate();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
 
@@ -20,24 +21,38 @@ const Login = () => {
       return;
     }
 
-    // Simulate a successful login and navigate to a dashboard or home page
-    alert("Login successful");
-    navigate("/dashboard");
+    try {
+      const response = await axios.post("http://localhost:3000/api/v1/auth/login", {
+        email,
+        password,
+      });
+
+      const { token, role } = response.data; // Extract role from response
+
+      // Store token in local storage or session storage
+      localStorage.setItem("token", token);
+
+      // Navigate based on role
+      if (role === 'Manager') {
+        navigate("/ManagerDashboard");
+      } else {
+        navigate("/HomePage");
+      }
+
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed. Please try again.");
+    }
   };
 
   return (
     <div className="h-screen w-screen flex justify-center items-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg border-2 shadow-lg">
-        <h2 className="text-3xl font-bold text-red-500 text-center mb-6">
-          Login
-        </h2>
+        <h2 className="text-3xl font-bold text-red-500 text-center mb-6">Login</h2>
 
         <form className="px-6 pt-4 pb-4 bg-white rounded">
           <div className="mb-4">
-            <label
-              className="block mb-1 text-sm font-bold text-gray-700"
-              htmlFor="email"
-            >
+            <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="email">
               Email
             </label>
             <input
@@ -50,10 +65,7 @@ const Login = () => {
           </div>
 
           <div className="mb-6">
-            <label
-              className="block mb-1 text-sm font-bold text-gray-700"
-              htmlFor="password"
-            >
+            <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="password">
               Password
             </label>
             <input
