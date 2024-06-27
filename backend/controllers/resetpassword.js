@@ -39,6 +39,7 @@ const requestPasswordReset = async (req, res) => {
         return res.status(500).json({ error: "Internal Server Error" });
     }
 };
+//==============================RESET-PASSWORD===================================================
 
 const resetPassword = async (req, res) => {
     const { token } = req.params;
