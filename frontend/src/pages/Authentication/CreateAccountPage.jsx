@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const CreateAccountPage = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const CreateAccountPage = () => {
 
   const [role, setRole] = useState("User");
 
-  const submitButtonHandler = (event) => {
+  const submitButtonHandler = async (event) => {
     event.preventDefault();
 
     const fullName = fullNameInputRef.current.value;
@@ -43,8 +44,23 @@ const CreateAccountPage = () => {
     } else if (role === "Manager" && (pincode === "" || state === "" || city === "" || roadNameAreaColony === "")) {
       alert("Please fill all the required fields for the Manager role");
     } else {
-      toast.success("Account created successfully!");
-      navigate("/login");
+      try {
+        const response = await axios.post('http://localhost:3000/api/v1/auth/signup', {
+          fullName,
+          email,
+          password,
+          role,
+          pincode,
+          state,
+          city,
+          roadName_area_colony: roadNameAreaColony
+        });
+
+        toast.success("Account created successfully!");
+        navigate("/HomePage");
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     }
   };
 

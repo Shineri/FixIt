@@ -5,7 +5,7 @@ const {generateToken} = require("../utils/generateToken.js")
 
 //signup controller
  const signup = async (req, res) => {
-  const { fullName, email, password,role , address, buildingName, societyName, area } = req.body;
+  const { fullName, email, password, role, pincode, state, city, roadName_area_colony } = req.body;
 
   //validation
   if (!fullName) {
@@ -108,10 +108,11 @@ const login = async (req, res) => {
 
       // Respond with token
       console.log("User :",user);
-      return res
-      .status(200)
-      .json({ token });
-
+    
+      return res.status(200).json({
+        token,
+        role: user.role, // Include the role in the response
+    });
   } catch (error) {
       console.error("Login error:", error);
       res.status(500).json({ message: 'Server error' });

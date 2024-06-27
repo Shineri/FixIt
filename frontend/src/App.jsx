@@ -12,6 +12,7 @@ import UserProfile from './pages/UserProfie';
 import ManagerDashboard from './pages/ManagerDashboard';
 import PaymentDetails from "./pages/PaymentDetails";
 import Workers from "./pages/Workers";
+import HomePage from "./pages/HomePage";
 import EmailVerificationForm from './pages/Emailverification';
 
 
@@ -32,6 +33,7 @@ const App = () => {
           <Route path ="/ManagerDashboard" element={<ManagerDashboard/>}/>
           <Route path ="/PaymentDetails" element={<PaymentDetails/>}/>
           <Route path ="/Workers" element={<Workers/>}/>
+          <Route path ="/HomePage" element={<HomePage/>}/>
           {/* Add other routes as needed */}
         </Routes>
       </div>
