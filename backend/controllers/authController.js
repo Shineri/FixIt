@@ -27,10 +27,10 @@ const {generateToken} = require("../utils/generateToken.js")
       .status(400)
       .json({ message: "Password does not meet the strength requirements" });
   }
-  // Manager-specific validation
-  if (role === 'Manager' && (!pincode || !city || !state || !roadName_area_colony)) {
-    return res.status(400).json({ message: "Please fill all required fields for Manager" });
-  } 
+  // // Manager-specific validation
+  // if (role === 'Manager' && (!pincode || !city || !state || !roadName_area_colony)) {
+  //   return res.status(400).json({ message: "Please fill all required fields for Manager" });
+  // } 
   try {
     // Finding existing user with same email
     const existingUserEmail = await User.findOne({ email: email });
@@ -43,32 +43,33 @@ const {generateToken} = require("../utils/generateToken.js")
    
   // Hash password and create user
     const hashedPassword = await hashPassword(password);
-    const newUser = await User.create({
+    const newUser = new User({
       fullName,
       email,
       password: hashedPassword,
-      role,
-      pincode,
-      city,
-      state,
-      roadName_area_colony
+      role
     });
+
+     // Assign address details only if role is Manager
+     if (role === 'Manager') {
+      newUser.pincode = pincode;
+      newUser.state = state;
+      newUser.city = city;
+      newUser.roadName_area_colony = roadName_area_colony;
+  }
+  await newUser.save();
+
     console.log("User registered successfully");
     console.log("User",newUser);
     // Send a success response
     return res.status(201).json({
       message: "User registered successfully",
-      user: {
-        id: newUser._id,
-        fullName: newUser.fullName,
-        email: newUser.email,
-        role: newUser.role,
-        address: newUser.address,
-        buildingName: newUser.buildingName,
-        societyName: newUser.societyName,
-        area: newUser.area,
-        status: newUser.status
-      },
+       user: {
+                id: newUser._id,
+                fullName,
+                email,
+                role,
+            },
     });
   } catch (err) {
     console.error(err.message);
