@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef,useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ValidateEmail } from "../../Helper/EmailHelper";
 import axios from "axios"; // Import Axios
@@ -28,15 +28,15 @@ const Login = () => {
       });
 
       const { token, role } = response.data; // Extract role from response
-
+       
       // Store token in local storage or session storage
       localStorage.setItem("token", token);
 
       // Navigate based on role
       if (role === 'Manager') {
-        navigate("/ManagerDashboard");
+        navigate("/PaymentDetails");
       } else {
-        navigate("/HomePage");
+        navigate("/UserProfile");
       }
 
     } catch (error) {
@@ -46,9 +46,10 @@ const Login = () => {
   };
 
   return (
+    <div>
     <div className="h-screen w-screen flex justify-center items-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg border-2 shadow-lg">
-        <h2 className="text-3xl font-bold text-red-500 text-center mb-6">Login</h2>
+        <h2 className="text-3xl font-bold text-black-500 text-center mb-6">Login</h2>
 
         <form className="px-6 pt-4 pb-4 bg-white rounded">
           <div className="mb-4">
@@ -79,7 +80,7 @@ const Login = () => {
 
           <div className="mb-6 text-center">
             <button
-              className="w-full px-4 py-2 font-bold text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
+              className="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
               type="button"
               onClick={handleLogin}
             >
@@ -87,6 +88,15 @@ const Login = () => {
             </button>
           </div>
         </form>
+
+        <div className="mb-4 text-center">
+          <Link
+            className="text-blue-500 hover:text-blue-800"
+            to="/forgot-password"
+          >
+            Forgot Password?
+          </Link>
+        </div>
 
         <hr className="mb-4 border-t" />
 
@@ -100,6 +110,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
+    </div>
     </div>
   );
 };

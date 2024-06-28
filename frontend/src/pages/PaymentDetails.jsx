@@ -32,7 +32,7 @@ const PaymentDetails = () => {
         } else {
             // Simulate success response
             toast.success("Payment details saved successfully!");
-            navigate("/dashboard"); // Redirect to dashboard or another relevant page
+            navigate("/ManagerProfile"); // Redirect to dashboard or another relevant page
         }
     };
 
