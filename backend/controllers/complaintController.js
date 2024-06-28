@@ -57,20 +57,21 @@ const createComplaint = async (req, res) => {
         return res.status(404).json({ message: "User not found" });
       }
         //manager mailbody
-        const emailBody = `
+        const manageremail = `
         <h2>New Complaint Register</h2>
         <p>A new complaint in successfully registered.</p>
         <p>You must resolve this.</p>
          `;
-        await mailSender(manager.email, 'New Complaint Made', emailBody);
+        await mailSender(manager.email, 'New Complaint Made', manageremail);
+        console.log(manager.email);
         
         //user mailbody
-        const emailbody = `
+        const useremail = `
         <h2>New Complaint registered</h2>
         <p>You registered a new complaint.</p>     
         <p>Your complaint will be resolve in few days.</p>
          `;
-        await mailSender(user.email, 'New Complaint Registered', emailbody);
+        await mailSender(user.email, 'New Complaint Registered', useremail);
         console.log("created complaint",complaint);
         return res.status(201).json({ message: "Complaint created successfully", complaint });
     } catch (error) {
