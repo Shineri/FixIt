@@ -15,7 +15,7 @@ const complaintSchema = new mongoose.Schema({
     serviceRequired: {
         type: String,
         required: true,
-        enum: ['Electrician', 'Plumber', 'Carpenter', 'Other'] // Add more types as needed
+        enum: ['Electrician', 'Plumber', 'Carpenter','Bathroom Cleaner', 'Other'] // Add more types as needed
     },
     description: {
         type: String,

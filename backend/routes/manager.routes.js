@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getAllComplaints, getWorkersByService, assignWorker, addPaymentDetails } = require('../controllers/managerController');
 const authenticate = require('../middlewares/authMiddleware');
-const {addWorker} =require("../controllers/workerController");
+const {addWorker,getAllWorker,deleteWorker} =require("../controllers/workerController");
 const checkPaymentDetails = require('../middlewares/checkPaymentDetails');
 // Get all complaints under manager
 router.get('/complaints', authenticate,checkPaymentDetails, getAllComplaints);
@@ -18,5 +18,13 @@ router.post('/add-payment-details', authenticate,addPaymentDetails);
 
 // route to addworker
 router.post('/add-worker',authenticate,checkPaymentDetails,addWorker);
+
+//router to get all worker under respective manager
+router.post('/get-all-worker',authenticate,checkPaymentDetails,getAllWorker);
+
+//router to delete worker
+router.post('/delete-worker',authenticate,checkPaymentDetails,deleteWorker);
+
+
 
 module.exports = router;
