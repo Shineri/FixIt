@@ -14,8 +14,8 @@ import PaymentDetails from "./pages/PaymentDetails";
 import Workers from "./pages/Workers";
 import HomePage from "./pages/HomePage";
 import EmailVerificationForm from './pages/Emailverification';
-
-
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
 
 
 const App = () => {
@@ -23,6 +23,7 @@ const App = () => {
     <Router>
       <div>
         <ToastContainer />
+        <Navbar />
         <Routes>
           <Route path="/CreateAccountPage" element={<CreateAccountPage/>} />
           <Route path="/Login" element={<Login/>} />
@@ -36,6 +37,7 @@ const App = () => {
           <Route path ="/HomePage" element={<HomePage/>}/>
           {/* Add other routes as needed */}
         </Routes>
+        <Footer/>
       </div>
     </Router>
   );
