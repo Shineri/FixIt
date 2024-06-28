@@ -8,6 +8,7 @@ const connect_database = require("./config/db");
 const mongoose = require("mongoose")
 const authRoutes = require("./routes/auth.routes.js")
 const managerRoutes = require("./routes/manager.routes.js");
+const userRoutes=require("./routes/user.routes.js");
 // Configure environment variables
 dotenv.config();
 
@@ -56,6 +57,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use('/api/v1/auth', authRoutes);
 app.use("/api/v2/manager",managerRoutes);
+app.use("/api/v1/user",userRoutes);
 
 
 app.listen(PORT, () => {
