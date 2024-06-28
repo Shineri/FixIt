@@ -1,17 +1,21 @@
 const Complaint = require("../models/complaint");
 const Worker = require("../models/worker");
+const PaymentDetails = require('../models/paymentDetails');
+const User = require("../models/user");
 
+
+//======================================All complaint controller===================================================
 const getAllComplaints = async (req,res)=>{
     try{
         const userId = req.user.id;
-       const complaints = await Complaint.findAll({manager:userId});
+       const complaints = await Complaint.find({manager:userId});
        if(!complaints.length){
         console.log("No complaint found");
        return res
         .status(200)
         .json({message:"No complaint found"});
        }
-       console.log("complaints under manager:",allComplaints);
+       console.log("complaints under manager:",complaints);
 
        return res
        .status(200)
@@ -76,7 +80,42 @@ const assignWorker = async(req,res) => {
 }
 };
 
-module.exports = {getAllComplaints,getWorkersByService,assignWorker};
+// Controller to create new payment details
+const addPaymentDetails = async (req, res) => {
+    const {
+        bankName,
+        accountNumber,
+        IFSC,
+        accountHolderName,
+        UPI
+    } = req.body;
+const manager = req.user.id;
+    try {
+        // Assuming manager ID is available in req.user.id after authentication
+        const newPaymentDetails = await PaymentDetails.create({
+            manager: manager,
+            bankName,
+            accountNumber,
+            IFSC,
+            accountHolderName,
+            UPI
+        });
+
+        console.log("Payment details added successfully");
+         // Update the manager's paymentDetails field
+         await User.findByIdAndUpdate(manager, { paymentDetails: newPaymentDetails._id });
+
+        return res.status(201).json({
+            message: 'Payment details added successfully',
+            paymentDetails: newPaymentDetails
+        });
+    } catch (error) {
+        console.error('Error creating payment details:', error.message);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+module.exports = {getAllComplaints,getWorkersByService,assignWorker,addPaymentDetails};
 
 
 
