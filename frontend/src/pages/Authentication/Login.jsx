@@ -1,7 +1,9 @@
-import React, { useRef,useState } from "react";
+import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ValidateEmail } from "../../Helper/EmailHelper";
-import axios from "axios"; // Import Axios
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,11 +15,11 @@ const Login = () => {
     const password = passwordInputRef.current.value;
 
     if (!ValidateEmail(email)) {
-      alert("Please enter a valid email");
+      toast.error("Please enter a valid email");
       return;
     }
     if (!password) {
-      alert("Please enter your password");
+      toast.error("Please enter your password");
       return;
     }
 
@@ -27,12 +29,10 @@ const Login = () => {
         password,
       });
 
-      const { token, role } = response.data; // Extract role from response
-       
-      // Store token in local storage or session storage
+      const { token, role } = response.data;
+      
       localStorage.setItem("token", token);
 
-      // Navigate based on role
       if (role === 'Manager') {
         navigate("/PaymentDetails");
       } else {
@@ -41,14 +41,14 @@ const Login = () => {
 
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.");
     }
   };
 
   return (
-    <div>
     <div className="h-screen w-screen flex justify-center items-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg border-2 shadow-lg">
+        <ToastContainer /> {/* ToastContainer for displaying notifications */}
         <h2 className="text-3xl font-bold text-black-500 text-center mb-6">Login</h2>
 
         <form className="px-6 pt-4 pb-4 bg-white rounded">
@@ -110,7 +110,6 @@ const Login = () => {
           </Link>
         </div>
       </div>
-    </div>
     </div>
   );
 };
