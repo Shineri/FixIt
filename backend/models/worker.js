@@ -6,18 +6,13 @@ const workerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     phoneNo: {
       type: String,
       required: true,
     },
     services: {
       type: [String],
-      enum : ['Electrician', 'Plumber', 'Carpenter','other'],
+      enum : ['Electrician', 'Plumber', 'Carpenter','Bathroom Cleaner','other'],
       required: true,
     },
     manager: {
