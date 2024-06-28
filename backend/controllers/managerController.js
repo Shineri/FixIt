@@ -28,7 +28,7 @@ const getAllComplaints = async (req,res)=>{
 
 // Get workers based on the service required
 const getWorkersByService = async (req, res) => {
-    const { complaintId } = req.query;
+    const { complaintId } = req.params;
 
     try {
         const complaint = await Complaint.findById(complaintId);
@@ -38,11 +38,16 @@ const getWorkersByService = async (req, res) => {
         }
 
         const requiredService = complaint.serviceRequired;
-
-        const workers = await Worker.find({ services: requiredService });
-
+         console.log("Service required :",requiredService);
+         
+        // Find workers with required service and status "Not Assigned"
+        const workers = await Worker.find({
+            services: { $elemMatch: { $eq: requiredService } },
+            status: "Not Assigned"
+        });
+          console.log(workers);
         if (!workers.length) {
-            console.log(`No worker has service as ${requiredService}`);
+            console.log(`No workers found for the service: ${requiredService}`);
             return res.status(200).json({ message: "No workers found for the required service" });
         }
           console.log(`All workers has service as ${requiredService} :`, workers);
@@ -70,7 +75,11 @@ const assignWorker = async(req,res) => {
     }
 
     complaint.assigned_worker = workerId;
+    worker.status="Assigned";
+    complaint.status="In Progress";
+
     await complaint.save();
+    await worker.save();
     console.log("Worker assigned asuccesfully :",worker);
     return res.status(200).json({ message: "Worker assigned successfully" });
    

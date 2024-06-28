@@ -11,11 +11,12 @@ const createComplaint = async (req, res) => {
       state,
       city,
       houseNo_buildingName,
-      roadName_area_colony,
+     // roadName_area_colony,
       availabilitySlot,
     } = req.body;
     const userId = req.user.id;
     //const user=await User.findById({userId});
+    console.log("infor from frotend",req.body);
     
     try {
         // Find the manager based on the address
@@ -24,47 +25,52 @@ const createComplaint = async (req, res) => {
         //   }
         const manager = await User.findOne({
           role: "Manager",
-          pincode,
-          state,
-          city,
-          roadName_area_colony: { $in: roadName_area_colony }
+          pincode:pincode,
+           state:state,
+          city:city,
+       // roadName_area_colony: { $in: roadName_area_colony }
         });
-    
+    console.log("Manager :", manager);
         if (!manager) {
+            console.log("manager not found");
           return res.status(404).json({ message: "Manager not found for the specified area" });
         }
         const managerId=manager._id.toString();
       
-  
+  console.log("manager found");
       // Create the complaint
       const complaint = new Complaint({
         user: userId,
-        manager: managerId,
+        manager: manager._id,
         serviceRequired,
         description,
         pincode,
         state,
         city,
         houseNo_buildingName,
-        roadName_area_colony,
+      //  roadName_area_colony,
         availabilitySlot,
       });
    
       await complaint.save();
       // Get user information for sending email
+      console.log("Complaint created");
       const user = await User.findById(userId);
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-        //manager mailbody
-        const manageremail = `
-        <h2>New Complaint Register</h2>
-        <p>A new complaint in successfully registered.</p>
-        <p>You must resolve this.</p>
-         `;
-        await mailSender(manager.email, 'New Complaint Made', manageremail);
-        console.log(manager.email);
-        
+        // Send email to manager
+        try {
+            const managerEmail = `
+                <h2>New Complaint Register</h2>
+                <p>A new complaint is successfully registered.</p>
+                <p>You must resolve this.</p>`;
+            await mailSender(manager.email, 'New Complaint Made', managerEmail);
+            console.log("manager mail send");
+        } catch (emailError) {
+            console.error("Error sending email to manager:", emailError.message);
+        }
+        try{
         //user mailbody
         const useremail = `
         <h2>New Complaint registered</h2>
@@ -72,7 +78,12 @@ const createComplaint = async (req, res) => {
         <p>Your complaint will be resolve in few days.</p>
          `;
         await mailSender(user.email, 'New Complaint Registered', useremail);
-        console.log("created complaint",complaint);
+        console.log("user mail send");
+        }catch (emailError) {
+            console.error("Error sending email to user:", emailError.message);
+        }
+
+        console.log("created complaint successfully",complaint);
         return res.status(201).json({ message: "Complaint created successfully", complaint });
     } catch (error) {
         console.error("Create Complaint error:", error.message);
