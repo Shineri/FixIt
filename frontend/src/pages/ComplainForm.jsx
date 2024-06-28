@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Hero from "../Components/Hero";
 import { profession } from "../Helper/Profession";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ComplainForm = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    serviceRequired: "", 
+    serviceRequired: "",
     description: "",
     pincode: "",
     state: "",
     city: "",
     houseNoBuildingName: "",
     roadNameAreaColony: "",
-    availabilitySlot: "", 
+    availabilitySlot: "",
   });
 
   const handleChange = (e) => {
@@ -39,16 +43,21 @@ const ComplainForm = () => {
       !formData.roadNameAreaColony ||
       !formData.availabilitySlot
     ) {
-      alert("Please fill in all required fields.");
+      toast.error("Please fill in all required fields.");
       return;
     }
 
-    // Simulate submission to backend (replace with actual API call)
-    setTimeout(() => {
-      console.log("Submitting complaint:", formData);
-      alert("Complaint submitted successfully!");
-      navigate("/complaints");
-    }, 1000); // Simulating delay for async operation
+    // API call to submit complaint
+    try {
+      const response = await axios.post("http://localhost:3000/api/v1/user/create-complaint", formData);
+
+      console.log("Server response:", response.data);
+      toast.success("Complaint submitted successfully!");
+      navigate("/HomePage");
+    } catch (error) {
+      console.error("Complaint submission error:", error);
+      toast.error("Failed to submit complaint. Please try again.");
+    }
   };
 
   return (
@@ -56,7 +65,8 @@ const ComplainForm = () => {
       <Hero />
       <div className="h-screen w-screen flex justify-center items-center bg-gray-200">
         <div className="w-full max-w-2xl bg-white p-8 rounded-lg border-2 shadow-lg">
-          <h2 className="text-3xl font-bold text-red-500 text-center mb-6">
+          <ToastContainer /> {/* ToastContainer for displaying notifications */}
+          <h2 className="text-3xl font-bold text-black-500 text-center mb-6">
             Submit a Complaint
           </h2>
 
@@ -220,7 +230,7 @@ const ComplainForm = () => {
             </div>
 
             <div className="text-center">
-              <button className="w-full px-4 py-2 font-bold text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline" type="submit">
+              <button className="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline" type="submit">
                 Submit Complaint
               </button>
             </div>

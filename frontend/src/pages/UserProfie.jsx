@@ -27,7 +27,7 @@ const UserProfile = ({ userName, role, email}) => {
           </div>
           <div className="mt-6" text-centre>
           <button
-            className="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
+            className="w-full px-4 py-2 font-bold text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
             onClick={handleComplainForm}
           >
           Register Complain
