@@ -64,10 +64,10 @@ const ManagerProfile = () => {
                     </div>
                 </div>
                 <div className="px-8 mb-4 text-center">
-                    <Link to="/manager/dashboard" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <Link to="/ManagerDashboard" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Dashboard
                     </Link>
-                    <Link to="/manager/workers" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">
+                    <Link to="/AllWorkers" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">
                         Workers List
                     </Link>
                 </div>

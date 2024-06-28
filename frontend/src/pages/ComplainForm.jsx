@@ -46,13 +46,14 @@ const ComplainForm = () => {
 
     try {
       const token = localStorage.getItem("token");
+      console.log("Token from localStorage:", token); // Debugging line
 
       const response = await axios.post(
         "http://localhost:3000/api/v1/user/create-complaint",
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           }
         }
       );
@@ -205,9 +206,8 @@ const ComplainForm = () => {
                 required
               >
                 <option value="">Select Availability Slot</option>
-                <option value="8AM - 12PM">8AM - 12PM</option>
-                <option value="12PM - 4PM">12PM - 4PM</option>
-                <option value="4PM - 8PM">4PM - 8PM</option>
+                <option value="Morning">Morning</option>
+                <option value="Afternoon">Afternoon</option>
               </select>
             </div>
 
