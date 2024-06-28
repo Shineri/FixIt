@@ -125,15 +125,16 @@ const WorkersPage = () => {
     const fetchWorkers = async () => {
         try {
             const token = localStorage.getItem('token'); // Retrieve token from localStorage
-            const response = await axios.get(`http://localhost:3000/api/v2/manager/workers?complaintId=${complaintId}`, {
+            const response = await axios.get(`http://localhost:3000/api/v2/manager/workers`, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include token in Authorization header
-                }
+                },
+                params: { complaintId } // Pass complaintId as a query parameter
             });
             const { Workers } = response.data;
             setWorkers(Workers);
         } catch (error) {
-            console.error('Error fetching workers:', error.response?.data?.message);
+            console.error('Error fetching workers:', error.response?.data?.message || error.message);
             toast.error('Error fetching workers. Please try again later.');
         }
     };
@@ -156,7 +157,7 @@ const WorkersPage = () => {
             });
             setWorkers(updatedWorkers);
         } catch (error) {
-            console.error('Error assigning worker:', error.response?.data?.message);
+            console.error('Error assigning worker:', error.response?.data?.message || error.message);
             toast.error('Error assigning worker. Please try again later.');
         }
     };
