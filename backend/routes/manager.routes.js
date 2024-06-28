@@ -20,10 +20,10 @@ router.post('/add-payment-details', authenticate,addPaymentDetails);
 router.post('/add-worker',authenticate,checkPaymentDetails,addWorker);
 
 //router to get all worker under respective manager
-router.post('/get-all-worker',authenticate,checkPaymentDetails,getAllWorker);
+router.get('/get-all-worker',authenticate,checkPaymentDetails,getAllWorker);
 
 //router to delete worker
-router.post('/delete-worker',authenticate,checkPaymentDetails,deleteWorker);
+router.delete('/delete-worker/:workerId',authenticate,checkPaymentDetails,deleteWorker);
 
 
 

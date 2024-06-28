@@ -1,6 +1,6 @@
 const Worker = require("../models/worker");
 const User = require("../models/user");
-
+const mongoose = require("mongoose");
 // Add worker function
 const addWorker = async (req, res) => {
   const { fullName, phoneNo, services } = req.body;
@@ -70,27 +70,30 @@ const getAllWorker = async (req,res) => {
 };
 
 const deleteWorker = async(req,res) =>{
-  const workerId = req.body;
+  const {workerId} = req.params;
   const managerId = req.user.id;
   try{
+
     // Validate the worker exists
-    const worker = await Worker.findById(workerId);
-    if (!worker) {
-        return res.status(404).json({ message: "Worker not found" });
-    }
+const worker = await Worker.findById(workerId);
+if (!worker) {
+    return res.status(404).json({ message: "Worker not found" });
+}
 
-    // Validate the manager exists and update the workers array
-    const manager = await User.findByIdAndUpdate(
-      managerId,
-      { $pull: { workers: workerId } },
-      { new: true }
-  );
-  if (!manager) {
-      return res.status(404).json({ message: "Manager not found" });
-  }
+// Delete the worker
+await Worker.deleteOne({ _id: workerId });
 
-     // Delete the worker
-     await Worker.deleteOne({ _id: workerId });
+await User.updateOne({ _id: managerId },
+   { $pull: { 
+    workers: workerId}},
+    { new: true }
+  
+
+);
+ 
+const manager = await User.findById(managerId);
+console.log(manager.workers);
+
 
 
 console.log("Worker deleted successfully:", worker);
