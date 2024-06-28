@@ -81,7 +81,7 @@ const complaintSchema = new mongoose.Schema({
     availabilitySlot: {
         type: String,
         required: true,
-        enum: ["8AM - 12PM", "12PM - 4PM"]
+        enum: ["Morning", "Afternoon"]
     }
 });
 
