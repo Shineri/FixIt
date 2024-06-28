@@ -1,41 +1,76 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios'; // Import axios for API requests
 
-const UserProfile = ({ userName, role, email}) => {
-  const handleComplainForm = () => {
-    // Navigate to complain form page
-    // Replace '/complain-form' with your actual route
-    window.location.href = "/ComplainForm";
-  };
+const UserProfile = () => {
+    const [userProfile, setUserProfile] = useState(null);
+    const [error, setError] = useState(null);
 
-  return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-white-400 to-indigo-600">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-96">
-        <h2 className="text-3xl font-bold text-red-500 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] mb=8">
-          My Profile
-        </h2>
-        <div className="mb-4">
-          <p className="text-lg text-gray-700 mb =6" >
-            <span className="font-semibold">Name:</span> {userName}
-          </p>
-          <p className="text-lg text-gray-700 mb =6">
-            <span className="font-semibold">Role:</span> {role}
-          </p>
-          <p className="text-lg text-gray-700">
-            <span className="font-semibold">Email:</span> {email}
-          </p>
-          </div>
-          <div className="mt-6" text-centre>
-          <button
-            className="w-full px-4 py-2 font-bold text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
-            onClick={handleComplainForm}
-          >
-          Register Complain
-          </button>
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                // Make API call to fetch user profile
+                const response = await axios.get('http://localhost:3000/api/v1/auth/profile', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}` // Fetch token from localStorage
+                    }
+                });
+                setUserProfile(response.data);
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+                setError('Error fetching user profile. Please try again.');
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+
+    if (error) {
+        return (
+            <div className="container mx-auto flex justify-center px-6 my-12">
+                <div className="w-2/3 bg-white p-5 rounded-lg border">
+                    <div className="px-8 mb-4 text-center">
+                        <h1 className="pt-4 mb-2 text-2xl font-bold underline text-black-600">User Profile</h1>
+                    </div>
+                    <div className="px-8 mb-4 bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <p className="text-red-600">{error}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="container mx-auto flex justify-center px-6 my-12">
+            <div className="w-2/3 bg-white p-5 rounded-lg border">
+                <div className="px-8 mb-4 text-center">
+                    <h1 className="pt-4 mb-2 text-2xl font-bold underline text-black-600">User Profile</h1>
+                </div>
+                {userProfile ? (
+                    <div className="px-8 mb-4 bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <div className="mb-4 p-3 bg-white rounded-lg shadow-md">
+                            <p className="font-bold">Name:</p>
+                            <p>{userProfile.fullName}</p>
+                        </div>
+                        <div className="mb-4 p-3 bg-white rounded-lg shadow-md">
+                            <p className="font-bold">Email:</p>
+                            <p>{userProfile.email}</p>
+                        </div>
+                    </div>
+                ) : (
+                    <p>Loading...</p>
+                )}
+                <div className="px-8 mb-4 text-center">
+                    <Link to="/UserDashboard" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        User Dashboard
+                    </Link>
+                    <Link to="/ComplainForm" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4">
+                        Register Complaint
+                    </Link>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default UserProfile;

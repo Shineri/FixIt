@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Hero from "../Components/Hero";
 import { profession } from "../Helper/Profession";
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ComplainForm = () => {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     serviceRequired: "",
     description: "",
@@ -18,21 +16,20 @@ const ComplainForm = () => {
     city: "",
     houseNoBuildingName: "",
     roadNameAreaColony: "",
-    availabilitySlot: "",
+    availabilitySlot: ""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value
     }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Perform basic form validation
     if (
       !formData.serviceRequired ||
       !formData.description ||
@@ -47,9 +44,18 @@ const ComplainForm = () => {
       return;
     }
 
-    // API call to submit complaint
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/user/create-complaint", formData);
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/create-complaint",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
 
       console.log("Server response:", response.data);
       toast.success("Complaint submitted successfully!");
@@ -65,17 +71,14 @@ const ComplainForm = () => {
       <Hero />
       <div className="h-screen w-screen flex justify-center items-center bg-gray-200">
         <div className="w-full max-w-2xl bg-white p-8 rounded-lg border-2 shadow-lg">
-          <ToastContainer /> {/* ToastContainer for displaying notifications */}
+          <ToastContainer />
           <h2 className="text-3xl font-bold text-black-500 text-center mb-6">
             Submit a Complaint
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="serviceRequired"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="serviceRequired">
                 Service Required
               </label>
               <select
@@ -95,10 +98,7 @@ const ComplainForm = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="description"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="description">
                 Description
               </label>
               <textarea
@@ -113,10 +113,7 @@ const ComplainForm = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="pincode"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="pincode">
                 Pincode
               </label>
               <input
@@ -132,10 +129,7 @@ const ComplainForm = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="state"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="state">
                 State
               </label>
               <input
@@ -151,10 +145,7 @@ const ComplainForm = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="city"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="city">
                 City
               </label>
               <input
@@ -170,10 +161,7 @@ const ComplainForm = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="houseNoBuildingName"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="houseNoBuildingName">
                 House No./Building Name
               </label>
               <input
@@ -189,10 +177,7 @@ const ComplainForm = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="roadNameAreaColony"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="roadNameAreaColony">
                 Road Name/Area/Colony
               </label>
               <input
@@ -208,10 +193,7 @@ const ComplainForm = () => {
             </div>
 
             <div>
-              <label
-                className="block mb-1 text-sm font-bold text-gray-700"
-                htmlFor="availabilitySlot"
-              >
+              <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="availabilitySlot">
                 Availability Slot
               </label>
               <select
