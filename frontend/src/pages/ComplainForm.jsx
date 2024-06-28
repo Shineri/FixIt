@@ -26,6 +26,8 @@ const ComplainForm = () => {
       [name]: value
     }));
   };
+// Log form data before validation
+console.log("Form Data before validation:", formData);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,16 +45,16 @@ const ComplainForm = () => {
       toast.error("Please fill in all required fields.");
       return;
     }
-
+   
     try {
       const token = localStorage.getItem("token");
-
+       console.log("token :", token);
       const response = await axios.post(
         "http://localhost:3000/api/v1/user/create-complaint",
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           }
         }
       );
