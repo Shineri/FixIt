@@ -5,7 +5,7 @@ const authenticate = require('../middlewares/authMiddleware'); // Assuming you h
 const {findAllComplaintsByUser}=require('../controllers/userController');
 
 // Route to create a new complaint
-router.post('/create-complaint', authenticate, createComplaint);
+router.post('/create-complaint',authenticate,createComplaint);
 
 //get all complaint
 router.get('/get-my-complaint',authenticate,findAllComplaintsByUser);

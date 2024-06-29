@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const PaymentDetails = () => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const PaymentDetails = () => {
     const accountHolderNameInputRef = useRef();
     const upiInputRef = useRef();
 
-    const submitButtonHandler = (event) => {
+    const submitButtonHandler = async (event) => {
         event.preventDefault();
 
         const bankName = bankNameInputRef.current.value;
@@ -20,19 +21,31 @@ const PaymentDetails = () => {
         const accountHolderName = accountHolderNameInputRef.current.value;
         const upi = upiInputRef.current.value;
 
-        // Validation logic
-        if (bankName.length === 0 || bankName.length > 100) {
-            alert("Enter a valid bank name");
-        } else if (accountNumber.length === 0 || accountNumber.length > 20) {
-            alert("Enter a valid account number");
-        } else if (ifsc.length !== 11) {
-            alert("Enter a valid IFSC code");
-        } else if (accountHolderName.length === 0 || accountHolderName.length > 50) {
-            alert("Enter a valid account holder name");
-        } else {
-            // Simulate success response
+        // Validate inputs (you can add more detailed validation as needed)
+
+        try {
+            // Get token from local storage or session storage
+            const token = localStorage.getItem('token');
+
+            // Make authenticated POST request with Axios
+            const response = await axios.post('http://localhost:3000/api/v2/manager/add-payment-details', {
+                bankName,
+                accountNumber,
+                IFSC: ifsc,
+                accountHolderName,
+                UPI: upi
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}` // Correct format for JWT token
+                }
+            });
+
+            // Handle success response
             toast.success("Payment details saved successfully!");
             navigate("/ManagerProfile"); // Redirect to dashboard or another relevant page
+        } catch (error) {
+            console.error('Error saving payment details:', error);
+            toast.error("Failed to save payment details. Please try again.");
         }
     };
 
@@ -43,7 +56,7 @@ const PaymentDetails = () => {
                     <div className="px-8 mb-4 text-center">
                         <h1 className="pt-4 mb-2 text-2xl font-bold underline text-black-600">Enter Payment Details</h1>
                     </div>
-                    <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
+                    <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                         <div className="mb-4">
                             <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="bankName">
                                 Bank Name
@@ -122,7 +135,7 @@ const PaymentDetails = () => {
                                 Save Payment Details
                             </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

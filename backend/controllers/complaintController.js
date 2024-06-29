@@ -51,7 +51,7 @@ const createComplaint = async (req, res) => {
       //  roadName_area_colony,
         availabilitySlot,
       });
-      //console.log(error)
+   
       await complaint.save();
       // Get user information for sending email
       console.log("Complaint created");
