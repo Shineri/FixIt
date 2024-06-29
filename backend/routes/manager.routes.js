@@ -8,7 +8,7 @@ const checkPaymentDetails = require('../middlewares/checkPaymentDetails');
 router.get('/complaints', authenticate,checkPaymentDetails, getAllComplaints);
 
 // Get workers by service
-router.get('/workers', authenticate, getWorkersByService);
+router.get('/workers/:complaintId', authenticate, getWorkersByService);
 
 // Assign worker to a complaint
 router.post('/assign-worker', authenticate,checkPaymentDetails, assignWorker);

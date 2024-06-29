@@ -26,6 +26,8 @@ const ComplainForm = () => {
       [name]: value
     }));
   };
+// Log form data before validation
+console.log("Form Data before validation:", formData);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,16 +45,20 @@ const ComplainForm = () => {
       toast.error("Please fill in all required fields.");
       return;
     }
-
+   
     try {
       const token = localStorage.getItem("token");
 
+      console.log("Token from localStorage:", token); // Debugging line
+
+       console.log("token :", token);
+ //9bd5a38dc040a3dc488da0ccf18955dba21ab6f5
       const response = await axios.post(
         "http://localhost:3000/api/v1/user/create-complaint",
          formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           }
         }
       );
@@ -205,9 +211,8 @@ const ComplainForm = () => {
                 required
               >
                 <option value="">Select Availability Slot</option>
-                <option value="8AM - 12PM">8AM - 12PM</option>
-                <option value="12PM - 4PM">12PM - 4PM</option>
-                <option value="4PM - 8PM">4PM - 8PM</option>
+                <option value="Morning">Morning</option>
+                <option value="Afternoon">Afternoon</option>
               </select>
             </div>
 

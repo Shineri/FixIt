@@ -35,15 +35,15 @@ const userSchema = new mongoose.Schema({
         required: function () { return this.role === 'Manager'; },
         default: null
     },
-    roadName_area_colony: {
-        type: [String],
-        required: function () { return this.role === 'Manager'; },
-        validate: {
-            validator: function(value) {
-                return this.role==="User" || (this.role==="Manager" && value.length >= 1); // At least one element is needed
-            },
-            message: 'roadName_area_colony should have at least one element'
-        },
+     roadName_area_colony: {
+         type: [String],
+    //      required: function () { return this.role === 'Manager'; },
+        // validate: {
+        //     validator: function(value) {
+        //         return this.role==="User" || (this.role==="Manager" && value.length >= 1); // At least one element is needed
+        //     },
+        //     message: 'roadName_area_colony should have at least one element'
+        // },
         default: []
     
     },

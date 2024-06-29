@@ -20,6 +20,11 @@ const workerSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    status:{
+      type : String,
+      enum : ["Assigned","Not Assigned"],
+      default : "Not Assigned"
+    }
   },
   {
     timestamps: true,

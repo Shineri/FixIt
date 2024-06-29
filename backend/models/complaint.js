@@ -35,23 +35,25 @@ const complaintSchema = new mongoose.Schema({
     },
     houseNo_buildingName: {
         type: [String],
-        required: true,
-        validate: {
-            validator: function(value) {
-                return value.length >= 1; // At least one element is needed
-            },
-            message: 'HouseNo./BuildingName should have at least one element'
-        }
+        // required: true,
+        // validate: {
+        //     validator: function(value) {
+        //         return value.length >= 1; // At least one element is needed
+        //     },
+        //     message: 'HouseNo./BuildingName should have at least one element'
+        // }
+        default:[]
     },
     roadName_area_colony: {
         type: [String],
-        required: true,
-        validate: {
-            validator: function(value) {
-                return value.length >= 1; // At least one element is needed
-            },
-            message: 'roadName_area_colony should have at least one element'
-        }
+        // required: true,
+        // validate: {
+        //     validator: function(value) {
+        //         return value.length >= 1; // At least one element is needed
+        //     },
+        //     message: 'roadName_area_colony should have at least one element'
+        // }
+        default:[]
     },
     status: {
         type: String,
