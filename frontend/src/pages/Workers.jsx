@@ -112,7 +112,7 @@ const WorkersPage = () => {
     const [workers, setWorkers] = useState([]);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const complaintId = params.get("complaintId");
+    const complaintId= params.get("complaintId");
 
     useEffect(() => {
         if (complaintId) {
@@ -125,7 +125,7 @@ const WorkersPage = () => {
     const fetchWorkers = async () => {
         try {
             const token = localStorage.getItem('token'); // Retrieve token from localStorage
-            const response = await axios.get(`http://localhost:3000/api/v2/manager/workers`, {
+            const response = await axios.get(`http://localhost:3000/api/v2/manager//workers/:complaintId`, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include token in Authorization header
                 },
