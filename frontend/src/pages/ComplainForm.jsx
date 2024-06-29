@@ -49,14 +49,14 @@ const ComplainForm = () => {
 
       const response = await axios.post(
         "http://localhost:3000/api/v1/user/create-complaint",
-        formData,
+         formData,
         {
           headers: {
             Authorization: `Bearer ${token}`
           }
         }
       );
-
+      console.log(token);
       console.log("Server response:", response.data);
       toast.success("Complaint submitted successfully!");
       navigate("/HomePage");

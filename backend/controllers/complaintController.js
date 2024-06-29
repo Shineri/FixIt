@@ -16,8 +16,8 @@ const createComplaint = async (req, res) => {
     } = req.body;
     const userId = req.user.id;
     //const user=await User.findById({userId});
-    
-    try {
+      
+      try{
         // Find the manager based on the address
         // if (!mongoose.Types.ObjectId.isValid(userId)) {
         //     return res.status(400).json({ message: "Invalid user ID" });
@@ -73,6 +73,7 @@ const createComplaint = async (req, res) => {
          `;
         await mailSender(user.email, 'New Complaint Registered', useremail);
         console.log("created complaint",complaint);
+        console.log(managerId);
         return res.status(201).json({ message: "Complaint created successfully", complaint });
     } catch (error) {
         console.error("Create Complaint error:", error.message);
