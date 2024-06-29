@@ -16,6 +16,7 @@ const createComplaint = async (req, res) => {
     } = req.body;
     const userId = req.user.id;
     //const user=await User.findById({userId});
+    console.log("infor from frotend",req.body);
     
     try {
         // Find the manager based on the address
@@ -50,7 +51,7 @@ const createComplaint = async (req, res) => {
       //  roadName_area_colony,
         availabilitySlot,
       });
-   
+      //console.log(error)
       await complaint.save();
       // Get user information for sending email
       console.log("Complaint created");
@@ -77,7 +78,12 @@ const createComplaint = async (req, res) => {
         <p>Your complaint will be resolve in few days.</p>
          `;
         await mailSender(user.email, 'New Complaint Registered', useremail);
-        console.log("created complaint",complaint);
+        console.log("user mail send");
+        }catch (emailError) {
+            console.error("Error sending email to user:", emailError.message);
+        }
+
+        console.log("created complaint successfully",complaint);
         return res.status(201).json({ message: "Complaint created successfully", complaint });
     } catch (error) {
         console.error("Create Complaint error:", error.message);

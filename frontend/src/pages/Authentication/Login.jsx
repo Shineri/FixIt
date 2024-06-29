@@ -92,7 +92,7 @@ const Login = () => {
         <div className="mb-4 text-center">
           <Link
             className="text-blue-500 hover:text-blue-800"
-            to="/forgot-password"
+            to="/Emailverification"
           >
             Forgot Password?
           </Link>

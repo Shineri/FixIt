@@ -5,8 +5,12 @@ const Navbar = () => {
   return (
     <nav className="bg-red-500">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        <div className="text-black font-bold text-xl">
-          <Link to="/">FIXIT</Link>
+        <div className="flex items-center h-full">
+          <img src="/images/Logo.jpg" className="h-10 w-10" alt="Logo" />
+          <div className="text-black font-bold text-xl ml-2">
+            {/* <Link to="/HomePage">FIXIT</Link> */}
+            <p>Fixit</p>
+          </div>
         </div>
         <div className="flex space-x-4">
           <Link to="/HomePage" className="text-black font-bold bg-white py-2 px-4 rounded hover:bg-gray-200">Home</Link>
