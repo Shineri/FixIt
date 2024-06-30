@@ -148,7 +148,7 @@ const WorkersPage = () => {
     const assignWorker = async (workerId) => {
         try {
             const token = localStorage.getItem('token'); // Retrieve token from localStorage
-            const response = await axios.post('http://localhost:3000/api/v2/manager/assign-worker',{complaintId,workerId}, {
+            const response = await axios.post('http://localhost:3000/api/v2/manager/assign-worker',{}, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include token in Authorization header
                 }
