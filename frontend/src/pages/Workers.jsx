@@ -104,13 +104,14 @@ console.log(complaintId);
 export default WorkersPage;*/
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const WorkersPage = () => {
     const [workers, setWorkers] = useState([]);
     const location = useLocation();
+    
     const params = new URLSearchParams(location.search);
     const complaintId = params.get("complaintId");
 
@@ -140,8 +141,10 @@ const WorkersPage = () => {
                 setWorkers([]);
             }
         } catch (error) {
+            
             console.error('Error fetching workers:', error.response?.data?.message || error.message);
             toast.error('Error fetching workers. Please try again later.');
+           
         }
     };
 
@@ -162,9 +165,18 @@ const WorkersPage = () => {
                 return worker;
             });
             setWorkers(updatedWorkers);
+            await axios.put('http://localhost:3000/api/v2/manager/assign-worker', { complaintId, status: 'In Progress' }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            window.location.href = '/ManagerProfile';
+            
         } catch (error) {
+            window.location.href = '/ManagerProfile';//bs chck krne ke lye rhene do last me hata denge ;
             console.error('Error assigning worker:', error.response?.data?.message || error.message);
             toast.error('Error assigning worker. Please try again later.');
+            
         }
     };
 
