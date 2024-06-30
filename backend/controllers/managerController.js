@@ -29,7 +29,7 @@ const getAllComplaints = async (req,res)=>{
 // Get workers based on the service required
 const getWorkersByService = async (req, res) => {
     const { complaintId } = req.params;
-
+console.log("complaintId:",complaintId);
     try {
         const complaint = await Complaint.findById(complaintId);
 

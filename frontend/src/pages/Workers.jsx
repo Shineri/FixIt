@@ -112,7 +112,7 @@ const WorkersPage = () => {
     const [workers, setWorkers] = useState([]);
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const complaintId= params.get("complaintId");
+    const complaintId = params.get("complaintId");
 
     useEffect(() => {
         if (complaintId) {
@@ -125,14 +125,20 @@ const WorkersPage = () => {
     const fetchWorkers = async () => {
         try {
             const token = localStorage.getItem('token'); // Retrieve token from localStorage
-            const response = await axios.get(`http://localhost:3000/api/v2/manager//workers/:complaintId`, {
+            console.log('Fetching workers for complaint ID:', {complaintId}); // Added logging
+            const response = await axios.get(`http://localhost:3000/api/v2/manager/workers/${complaintId}`, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include token in Authorization header
-                },
-                params: { complaintId } // Pass complaintId as a query parameter
+                }
             });
+            console.log('Response from server:', response.data); // Added logging
             const { Workers } = response.data;
-            setWorkers(Workers);
+            if (Workers && Array.isArray(Workers)) {
+                setWorkers(Workers);
+                console.log('Workers set in state:', Workers); // Added logging
+            } else {
+                setWorkers([]);
+            }
         } catch (error) {
             console.error('Error fetching workers:', error.response?.data?.message || error.message);
             toast.error('Error fetching workers. Please try again later.');
@@ -142,7 +148,7 @@ const WorkersPage = () => {
     const assignWorker = async (workerId) => {
         try {
             const token = localStorage.getItem('token'); // Retrieve token from localStorage
-            const response = await axios.post('/api/v2/manager/assign-worker', { complaintId, workerId }, {
+            const response = await axios.post('http://localhost:3000/api/v2/manager/assign-worker',{complaintId,workerId}, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include token in Authorization header
                 }
@@ -169,7 +175,7 @@ const WorkersPage = () => {
                 <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg border">
                     <div className="px-8 mb-4 text-center">
                         <h1 className="pt-4 mb-2 text-2xl font-bold underline text-black-600">
-                            {complaintId ? `Available Workers for Complaint ID: ${complaintId}` : 'Complaint ID Not Found'}
+                            {complaintId ? `Available Workers ` : 'Complaint ID Not Found'}
                         </h1>
                     </div>
                     <div className="px-8 pt-6 pb-8 mb-4 bg-white rounded">

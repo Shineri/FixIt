@@ -16,12 +16,7 @@ import HomePage from "./pages/HomePage";
 import EmailVerificationForm from './pages/Emailverification';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
-
-import UserDashboard from './pages/UserDashboard';
-import AllWorkers from './pages/AllWorkers';
-
-import Resetpassword from './pages/Resetpassword';
-
+import Resetpassword from './pages/Resetpassword.jsx';
 
 
 const App = () => {
@@ -41,12 +36,7 @@ const App = () => {
           <Route path ="/PaymentDetails" element={<PaymentDetails/>}/>
           <Route path ="/Workers" element={<Workers/>}/>
           <Route path ="/HomePage" element={<HomePage/>}/>
-
-          <Route path ="/UserDashboard" element={<UserDashboard/>}/>
-          <Route path ="/AllWorkers" element={<AllWorkers/>}/>
-
           <Route path="/Resetpassword" element={<Resetpassword/>}/>
-
           {/* Add other routes as needed */}
         </Routes>
         <Footer/>
