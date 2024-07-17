@@ -46,12 +46,12 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-gray-100">
+    <div className="h-screen w-screen flex justify-center items-center bg-[url('/images/loginbg.jpg')] bg-cover bg-center">
       <div className="w-full max-w-md bg-white p-8 rounded-lg border-2 shadow-lg">
         <ToastContainer /> {/* ToastContainer for displaying notifications */}
         <h2 className="text-3xl font-bold text-black-500 text-center mb-6">Login</h2>
 
-        <form className="px-6 pt-4 pb-4 bg-white rounded">
+        <form className="px-6 pt-4 pb-4 bg-transparent rounded">
           <div className="mb-4">
             <label className="block mb-1 text-sm font-bold text-gray-700" htmlFor="email">
               Email

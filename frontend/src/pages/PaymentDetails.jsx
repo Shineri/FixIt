@@ -136,6 +136,14 @@ const PaymentDetails = () => {
                             </button>
                         </div>
                     </form>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">
+          <img
+            src="/images/bankdetail_bg.jpg"
+            className="w-120 h-260 opacity-40"
+            alt="Decorative"
+          />
+          </div>
+                    
                 </div>
             </div>
         </div>

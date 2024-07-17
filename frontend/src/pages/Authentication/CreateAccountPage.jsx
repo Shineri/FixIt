@@ -70,8 +70,9 @@ const CreateAccountPage = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-center px-6 my-12">
+      <div className="flex justify-center px-6 my-12 " >
         <div className="w-1/2 bg-white p-5 rounded-lg border">
+        
           <div className="px-8 mb-4 text-center">
             <img
               src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png"
@@ -226,8 +227,25 @@ const CreateAccountPage = () => {
                 Create Account
               </button>
             </div>
+            
           </div>
+          <div className="absolute top-3/4 right-1/4 transform -translate-y-1/2 z-0">
+          <img
+            src="/images/createacc_bg.jpg"
+            className="w-120 h-260 opacity-100"
+            alt="Decorative"
+          />
+          {/* <div className="absolute top-1/2 left-1/5 transform -translate-x- 1/2-translate-y-1/2 z-0">
+          <img
+            src="/images/createacc_bg.jpg"
+            className="w-80 h-180 opacity-100"
+            alt="Decorative"
+            // style={{ right: '10%', top: '10%' }
+          /> */}
+          </div>
+          
         </div>
+        
       </div>
     </div>
   );
