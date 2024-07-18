@@ -84,10 +84,11 @@ const AllWorkers = () => {
     }
 
     return (
-        <div className="container mx-auto">
+        // <div className="h-screen w-screen flex justify-center items-center bg-[url('/images/workers.jpg')] bg-cover bg-center">
+         <div className="  container mx-auto   bg-[url('/images/workers.jpg')]">
             <ToastContainer />
             <div className="flex justify-center px-6 my-12">
-                <div className="w-2/3 bg-white p-5 rounded-lg border">
+                <div className="w-2/3 bg-transparent p-5 rounded-lg border p-5 rounded-lg border">
                     <div className="px-8 mb-4 text-center">
                         <h1 className="pt-4 mb-2 text-2xl font-bold underline text-black-600">All Workers</h1>
                     </div>

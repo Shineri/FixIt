@@ -20,6 +20,7 @@ import Resetpassword from './pages/Resetpassword';
 import AllWorkers from "./pages/AllWorkers";
 
 
+
 const App = () => {
   return (
     <Router>
@@ -27,6 +28,7 @@ const App = () => {
         <ToastContainer />
         <Navbar />
         <Routes>
+          
           <Route path="/CreateAccountPage" element={<CreateAccountPage/>} />
           <Route path="/Login" element={<Login/>} />
           <Route path="/ComplainForm" element={<ComplainForm/>} />
@@ -39,6 +41,7 @@ const App = () => {
           <Route path ="/HomePage" element={<HomePage/>}/>
           <Route path="/Resetpassword" element={<Resetpassword/>}/>
           <Route path="/AllWorkers" element={<AllWorkers/>}/>
+         
           {/* Add other routes as needed */}
         </Routes>
         <Footer/>
