@@ -29,15 +29,15 @@ const getAllComplaints = async (req,res)=>{
 // Get workers based on the service required
 const getWorkersByService = async (req, res) => {
     const { complaintId } = req.params;
-
+   console.log("complaintId:",complaintId);
     try {
-        const complaint = await Complaint.findById(complaintId);
-
+        const complaint = await Complaint.findOne({_id:complaintId});
+ 
         if (!complaint) {
             return res.status(404).json({ message: "Complaint not found" });
         }
-
-        const requiredService = complaint.serviceRequired;
+        
+        const requiredService =  complaint.serviceRequired;
          console.log("Service required :",requiredService);
          
         // Find workers with required service and status "Not Assigned"

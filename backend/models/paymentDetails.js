@@ -24,6 +24,10 @@ const paymentDetailsSchema = new mongoose.Schema({
     },
     UPI: {
         type: String
+    },
+    stripeAccountId: {
+        type: String,
+        required: false 
     }
 }, {
     timestamps: true,

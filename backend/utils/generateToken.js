@@ -12,7 +12,7 @@ const generateToken = (user) => {
         role: user.role
     };
 
-    return jwt.sign(payload, SECRET_KEY, { expiresIn: '3h' });
+    return jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
 };
 
 // //verify token

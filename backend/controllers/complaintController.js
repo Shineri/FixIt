@@ -91,4 +91,24 @@ const createComplaint = async (req, res) => {
     }
 };
 
-module.exports={createComplaint};
+const resolveComplaint = async(req,res) =>{
+  const {complaintId,amount}=req.body;
+  try{
+    const complaint = await Complaint.findById(complaintId);
+    if(!complaint){
+      console.log("complaint not found");
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+    complaint.amount=amount;
+    complaint.status = "Resolved";
+
+    await complaint.save();
+    console.log("Complaint Resolved");
+    return res.status(200).json({ message: "Complaint resolved and amount set successfully" });
+    } catch (error) {
+        console.error("Error in resolving complaint:", error.message);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+
+}
+module.exports={createComplaint,resolveComplaint};

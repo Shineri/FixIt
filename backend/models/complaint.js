@@ -83,6 +83,10 @@ const complaintSchema = new mongoose.Schema({
         required: true,
         enum: ["Morning", "Afternoon"]
     }
+},
+{
+    timestamps: true,
+    collection: 'complaints'
 });
 
 
