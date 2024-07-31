@@ -8,9 +8,9 @@ const AllWorkers = () => {
     const [fullName, setFullName] = useState('');
     const [phoneNo, setPhoneNo] = useState('');
     const [services, setServices] = useState('');
-    const [status, setStatus] = useState('');
     const [showForm, setShowForm] = useState(false);
     const [loading, setLoading] = useState(true);
+    const[status,setStatus]=useState('');
 
     useEffect(() => {
         const fetchWorkers = async () => {
@@ -84,10 +84,11 @@ const AllWorkers = () => {
     }
 
     return (
-        <div className="container mx-auto">
+        // <div className="h-screen w-screen flex justify-center items-center bg-[url('/images/workers.jpg')] bg-cover bg-center">
+         <div className="  container mx-auto   bg-[url('/images/workers.jpg')]">
             <ToastContainer />
             <div className="flex justify-center px-6 my-12">
-                <div className="w-2/3 bg-white p-5 rounded-lg border">
+                <div className="w-2/3 bg-transparent p-5 rounded-lg border p-5 rounded-lg border">
                     <div className="px-8 mb-4 text-center">
                         <h1 className="pt-4 mb-2 text-2xl font-bold underline text-black-600">All Workers</h1>
                     </div>
@@ -144,7 +145,7 @@ const AllWorkers = () => {
                                     placeholder="Enter services provided, separated by commas"
                                 />
                             </div>
-                            <div className="mb-4">
+                            {/* <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="status">
                                     Status
                                 </label>
@@ -155,9 +156,9 @@ const AllWorkers = () => {
                                     onChange={(e) => setServices(e.target.value)}
                                     required
                                     className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    placeholder="Enter status"
+                                    placeholder="Enter either worker is assigned or"
                                 />
-                            </div>
+                            </div> */}
                             <div className="mb-6 text-center">
                                 <button
                                     type="submit"
@@ -178,7 +179,7 @@ const AllWorkers = () => {
                                                 <h3 className="text-lg font-bold">{worker.fullName}</h3>
                                                 <p className="text-gray-600">Phone: {worker.phoneNo}</p>
                                                 <p className="text-gray-600">Services: {worker.services.join(', ')}</p>
-                                                <p className="text-red-500">status:{worker.status}</p>
+                                                <p className="text-red-600">Status:{worker.status}</p>
                                             </div>
                                             <button
                                                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 focus:outline-none focus:shadow-outline"
